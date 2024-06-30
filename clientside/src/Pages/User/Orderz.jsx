@@ -66,7 +66,7 @@ const Orderz = () => {
                         return p.product_name + " x " + p.quantity + " , "
                       }
                     })}</td>
-                    <td>{o.amount}</td>
+                    <td>${o.amount}</td>
                     <td>{o.products.length}</td>
                     <td><p><span>&#x25cf;</span>{o.payment.success? "Success":"failed"}</p></td>
                     <td><p><span>&#x25cf;</span> <b>{o.status}</b></p></td>
