@@ -3,7 +3,7 @@ import Layout from '../../Components/Layout'
 import './Search.css'
 import { Checkbox, Radio } from 'antd';
 import ProductItem from '../../Components/prodItem/ProductItem'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import brands from '../../helpers/ProductBrands'
 import prices from '../../helpers/ProductPrices';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const Search = () => {
     /*const [que, setQue] = useSearchParams();
     let q = que.get("q")
     console.log(q );*/
-    const {search} = useSearch();
+    const [search] = useSearch();
     const [checked, setChecked] = useState([]);
     const [radio, setRadio] = useState([]);
     const [load, setLoad] = useState([]);
@@ -51,6 +51,7 @@ const Search = () => {
         const resp = await axios.post('/api/product/filter-products', {checked, radio});
         if(resp.data.success) {
             setLoad(resp.data.data);
+            console.log(resp.data.data)
         }
     }
   return (

@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../Components/Layout'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Checkbox, Radio } from 'antd';
 import prices from '../../helpers/ProductPrices';
-import CategoryCard from '../../Components/ProductCard1/CategoryCard';
-import Categories from '../../helpers/ProductCategories';
 import './CategoryProducts.css'
+import axios from 'axios';
+import brands from '../../helpers/ProductBrands';
+import ProductItem from '../../Components/prodItem/ProductItem';
 
 const CategoryProducts = () => {
     const params = useParams();
 
-    console.log(params);
+    const que = params.category;
     const [data, setData] = useState([]);
     const [checked, setChecked] = useState([]);
     const [radio, setRadio] = useState([]);
@@ -23,6 +24,34 @@ const CategoryProducts = () => {
             all = all.filter(b => b !== brand)
         }
         setChecked(all);
+    }
+
+    useEffect(()=> {
+        if(checked.length || radio.length) {
+            filterProducts()
+        };
+    }, [checked, radio, que])
+
+    useEffect(()=> {
+        if(!checked.length || !radio.length) {
+            categoryProducts()
+            console.log("dat", data);
+        };
+    }, [checked.length, radio.length, que])
+
+
+    const filterProducts = async() => {
+        const resp = await axios.post('/api/product/filter_categories', {que, checked, radio});
+        if(resp.data.success) {
+            setData(resp.data.data);
+            console.log(resp.data.data);
+        }
+    }
+
+    const categoryProducts = async() => {
+        const {data} = await axios.post('/api/product/category_products', {que});
+        setData(data.data);
+        console.log(data);
     }
   return (
     <Layout>
@@ -46,7 +75,7 @@ const CategoryProducts = () => {
                         <h3 className='sort'>Categories</h3>
                         <div className='sf'>
                             {
-                                Categories.map((b)=> {
+                                brands.map((b)=> {
                                     return (
                                     <Checkbox key={b.id} onChange={(e)=> handleFilter(e.target.checked, b.label)}>
                                       {b.label}
@@ -77,13 +106,19 @@ const CategoryProducts = () => {
                     </div>
                 </div>
                 <div>
-                    <p className='sr'>Search Results :</p>
+                    <p className='sr'> Results : {data.length === 0? "No Products Found": `(${data.length} products found)`}</p>
                     <div className='sep3'>
-                        {
-                           params?.category && (
-                             <CategoryCard gt_category={params.category}/>
-                           )
-                        }
+                    {
+                            data?.map((p, i)=> {
+                                return(
+                                    
+                                        <Link className='results' key={i} to={`/product/${p._id}`} style={{ textDecoration: 'none', color: 'inherit'}} >
+                                            <ProductItem  id={p._id} name={p.product_name} image={`/images/${p.image}`} new_price={p.new_price.toLocaleString()} old_price={p.old_price.toLocaleString()} />
+                                        </Link>
+                                    
+                                )
+                            })
+                    }
                     </div>
                 </div>
             </div>

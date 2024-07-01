@@ -47,7 +47,8 @@ table button {
     cursor: pointer;
     color: aliceblue;
     font-size: small;
-    height: 40px;
+    height: 35px;
+    width: 60px;
     padding: 4px;
     font-weight: 500;
 }
@@ -66,6 +67,7 @@ tr {
 }
 
 tr td{
+    width: 30px;
     border: none;
     text-align: center;
 }

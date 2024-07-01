@@ -70,7 +70,7 @@ const Orderz = () => {
                     <td>{o.products.length}</td>
                     <td><p><span>&#x25cf;</span>{o.payment.success? "Success":"failed"}</p></td>
                     <td><p><span>&#x25cf;</span> <b>{o.status}</b></p></td>
-                    <td><button onClick={getOrders}>Track Order</button></td>
+                    <td><button onClick={getOrders}>Track</button></td>
                   </tr>
                 </tbody>
               </table>

@@ -15,14 +15,13 @@ import { IoIosArrowDown } from "react-icons/io";
 const Header = () => {
   const navigate = useNavigate();
   const {pass, setPass, getTotalCartItems } = usePass();
-  const {search, setSearch} = useSearch();
+  const [search, setSearch] = useSearch();
   const [open, setOpen] = useState(false);
   const handleSubmit = async(e)=> {
     e.preventDefault()
     const res = await axios.get(`/api/product/search/${search.phrase}`);
     if(res.data.success){
       setSearch({...search, result: res.data.data});
-      console.log(search);
       navigate(`/search?q=${search.phrase}`);
     }
   }
@@ -43,7 +42,7 @@ const Header = () => {
     <div className='navbar'>
         <div className='logo'>
           <Link to='/' style={{ textDecoration: 'none', color: 'inherit'}}>
-            <h2>SHOPLAKE</h2>
+            <h2 onClick={()=>window.scrollTo(0,0)}>SHOPLAKE</h2>
           </Link>
         </div>
         <form className='fieldbox' onSubmit={handleSubmit}>
@@ -51,7 +50,7 @@ const Header = () => {
           <button type='submit' className='searchbttn'><BiSearchAlt /></button>
         </form>
         <div className='nav-menu'>
-            <li><Link style={{ textDecoration: 'none', color: 'inherit'}} to='/'>HOME</Link></li>
+            <li onClick={()=>{window.location.reload(); window.scrollTo(0,0)}}><Link style={{ textDecoration: 'none', color: 'inherit'}} to='/'>HOME</Link></li>
             <Link to={'/About'} style={{ textDecoration: 'none', color: 'inherit'}}><li>ABOUT</li></Link>
         </div>
         {!pass.token ? 

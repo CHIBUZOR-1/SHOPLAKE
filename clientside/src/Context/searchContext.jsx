@@ -9,7 +9,7 @@ const SearchProvider = ({children}) => {
         result: []
     });
   return (
-    <SearchContext.Provider value={{search, setSearch}}>
+    <SearchContext.Provider value={[search, setSearch]}>
         {children}
     </SearchContext.Provider>
   );

@@ -205,6 +205,24 @@ const searchProducts = async (req, res) => {
     }
 }
 
+const cateProducts = async (req, res) => {
+    try {
+        const {que} = req.body;
+        const result = await productModel.find({sub_category: que});
+        res.json({
+            data: result,
+            success:true,
+            error: true
+        }); 
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            error: true
+        });
+    }
+}
+
 const filterProducts = async(req, res) => {
     try {
         const {checked, radio} = req.body;
@@ -230,9 +248,10 @@ const filterProducts = async(req, res) => {
 
 const c_and_p_filter = async(req, res) => {
     try {
-        const {checked, radio} = req.body;
+        const {checked, radio, que} = req.body;
         let args = {};
-        if(checked.length > 0) args.sub_category = checked;
+        if(que)  args.sub_category = que;
+        if(checked.length > 0) args.brand_name = checked;
         if(radio.length) args.new_price = {$gte: radio[0], $lte: radio[1]}
         const products = await productModel.find(args);
         res.status(200).send({
@@ -275,4 +294,4 @@ const removeProduct = async (req, res) => {
     }
  }
 
-module.exports = {addProduct, productList, updateProduct, filterProducts, c_and_p_filter, getProductDetails, searchProducts, removeProduct, getProductCategories, cardsByCartegory }
+module.exports = {addProduct, productList, updateProduct, cateProducts, filterProducts, c_and_p_filter, getProductDetails, searchProducts, removeProduct, getProductCategories, cardsByCartegory }
