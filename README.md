@@ -19,7 +19,7 @@ SHOPLAKE is a fullstack E-commerce website built using MERN(MongoDB, Express.js,
 ![Login Page](./clientside/src/Components/Assets/SL_loginpage.PNG)
 
 ### User Orders Page
-![User Orders](./clientside/src/Components/Assets/SL__2userOrder.PNG)
+![User Orders](./clientside/src/Components/Assets/SL__2__userOrders.PNG)
 
 ### Admin Dashboard Page
 ![Admin Dashboard](./clientside/src/Components/Assets/SL1_adminorders.PNG)
