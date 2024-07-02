@@ -75,3 +75,13 @@ Email: user1@yahoo.com
 Password: 224422
  ### For User Password Change
  Favorite word: userchange
+
+## Contact
+
+If you have any questions, feedback, or would like to connect, feel free to reach out to me.
+
+- **Name:** Chibuzor Henry Amaechi
+- **Email:** amaechihenrychibuzor@gmail.com
+
+Feel free to contact me through any of the channels above. I'm open to collaborations and discussions related to Flutter development or any other projects.
+ 
